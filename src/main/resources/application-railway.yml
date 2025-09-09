@@ -1,0 +1,27 @@
+# application-railway.yml (MySQL 버전)
+spring:
+  datasource:
+    url: ${DATABASE_URL}  # Railway에서 자동으로 제공
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update  # 개발용, 운영에서는 validate 권장
+    show-sql: true  # 개발용 - SQL 쿼리 로그 출력
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+server:
+  port: ${PORT:8080}
+
+logging:
+  level:
+    com.team25.backend: INFO  # 여기를 실제 패키지명으로 변경
+    org.hibernate.SQL: DEBUG  # SQL 쿼리 로그
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
